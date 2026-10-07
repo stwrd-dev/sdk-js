@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "rootDir": "..",
+    "outDir": null,
+    "tsBuildInfoFile": null,
+    "types": ["node", "@cloudflare/vitest-pool-workers/types", "vite/client"]
+  },
+  "include": ["../src", "."]
+}

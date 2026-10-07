@@ -1,0 +1,13 @@
+// The Worker the tests run against: the Durable Object under test and a
+// default handler. `compatibility_flags` and the `new_sqlite_classes` migration
+// are what an app's own wrangler config needs too (see the README).
+{
+  "name": "stwrd-workers-tests",
+  "main": "./tests/support/worker.ts",
+  "compatibility_date": "2026-08-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": {
+    "bindings": [{ "name": "STWRD_SESSIONS", "class_name": "StwrdSessionObject" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["StwrdSessionObject"] }]
+}

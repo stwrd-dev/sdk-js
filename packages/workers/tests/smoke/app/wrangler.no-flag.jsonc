@@ -1,0 +1,10 @@
+// A control of the smoke test: the same Worker without the `nodejs_compat` flag
+// but on a compatibility date from 2026-08-04 on, when wrangler turned it on by
+// default. Only the flag differs from `wrangler.jsonc`.
+{
+  "name": "stwrd-smoke-no-flag",
+  "main": "./index.ts",
+  "compatibility_date": "2026-08-22",
+  "durable_objects": { "bindings": [{ "name": "STWRD_SESSIONS", "class_name": "StwrdSessionObject" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["StwrdSessionObject"] }]
+}

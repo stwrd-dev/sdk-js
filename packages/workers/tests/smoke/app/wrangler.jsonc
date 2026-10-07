@@ -1,0 +1,12 @@
+// What an app's wrangler config needs for `@stwrd-auth/workers`: the
+// `nodejs_compat` flag, the Durable Object binding named STWRD_SESSIONS, and
+// the migration that creates the class as SQLite-backed. (Secrets are not
+// here: `wrangler secret put STWRD_COOKIE_SECRET`, ...)
+{
+  "name": "my-worker",
+  "main": "./index.ts",
+  "compatibility_date": "2026-08-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": { "bindings": [{ "name": "STWRD_SESSIONS", "class_name": "StwrdSessionObject" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["StwrdSessionObject"] }]
+}

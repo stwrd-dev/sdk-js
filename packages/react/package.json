@@ -1,0 +1,74 @@
+{
+  "name": "@stwrd-auth/react",
+  "version": "0.1.0",
+  "description": "stwrd SDK for React (backend-for-frontend profile): a session provider, hooks and components that read the session from the /auth/session endpoint.",
+  "keywords": [
+    "stwrd",
+    "authentication",
+    "oidc",
+    "oauth2",
+    "react",
+    "bff",
+    "sessions",
+    "hooks"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "stwrd",
+    "url": "https://stwrd.dev"
+  },
+  "homepage": "https://stwrd.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stwrd-dev/sdk-js.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/stwrd-dev/sdk-js/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "tsc --noEmit -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "jsdom": "^25.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.10"
+  }
+}

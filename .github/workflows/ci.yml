@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node.js ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        # The current and the previous LTS release lines.
+        node: [22, 24]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: stwrd
+          POSTGRES_PASSWORD: stwrd
+          POSTGRES_DB: stwrd_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U stwrd"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      STWRD_TEST_DB_URL: postgresql://stwrd:stwrd@localhost:5432/stwrd_test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test

@@ -1,0 +1,73 @@
+{
+  "name": "@stwrd-auth/core",
+  "version": "0.1.0",
+  "description": "Runtime-neutral core of the stwrd JavaScript SDKs: configuration, OIDC relying-party client, sessions, signed cookies, webhook verification and the Management API transport.",
+  "keywords": [
+    "stwrd",
+    "authentication",
+    "oidc",
+    "oauth2",
+    "sessions",
+    "webhooks",
+    "management-api",
+    "cloudflare-workers",
+    "node"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "stwrd",
+    "url": "https://stwrd.dev"
+  },
+  "homepage": "https://stwrd.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stwrd-dev/sdk-js.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/stwrd-dev/sdk-js/issues"
+  },
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json && tsc -p tests/tsconfig.json",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "jose": "^6.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.22.0",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.10"
+  }
+}

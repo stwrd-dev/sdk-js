@@ -1,0 +1,93 @@
+{
+  "name": "@stwrd-auth/node",
+  "version": "0.1.0",
+  "description": "stwrd SDK for Node.js and Express (backend-for-frontend profile): the /auth/* routes, server-side sessions, route guards and webhook verification.",
+  "keywords": [
+    "stwrd",
+    "authentication",
+    "oidc",
+    "oauth2",
+    "express",
+    "bff",
+    "sessions",
+    "webhooks",
+    "postgresql"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "stwrd",
+    "url": "https://stwrd.dev"
+  },
+  "homepage": "https://stwrd.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stwrd-dev/sdk-js.git",
+    "directory": "packages/node"
+  },
+  "bugs": {
+    "url": "https://github.com/stwrd-dev/sdk-js/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./management": {
+      "types": "./dist/management.d.ts",
+      "import": "./dist/management.js"
+    },
+    "./webhooks": {
+      "types": "./dist/webhooks.d.ts",
+      "import": "./dist/webhooks.js"
+    },
+    "./postgres": {
+      "types": "./dist/postgres.d.ts",
+      "import": "./dist/postgres.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "tsc -b tsconfig.json",
+    "test": "vitest run",
+    "lint": "tsc -b tsconfig.json"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "express": "^4 || ^5",
+    "pg": "^8"
+  },
+  "peerDependenciesMeta": {
+    "pg": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@stwrd-auth/core": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.23.1",
+    "express": "^4.21.0",
+    "jose": "^6.0.0",
+    "pg": "^8.23.1",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.10"
+  }
+}

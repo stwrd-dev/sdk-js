@@ -1,0 +1,35 @@
+{
+  "name": "stwrd-sdk-js",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JavaScript and TypeScript SDKs for stwrd.",
+  "license": "MIT",
+  "author": {
+    "name": "stwrd",
+    "url": "https://stwrd.dev"
+  },
+  "homepage": "https://stwrd.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stwrd-dev/sdk-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stwrd-dev/sdk-js/issues"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/node",
+    "packages/react",
+    "packages/workers"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "prelint": "npm run build",
+    "lint": "npm run lint --workspaces",
+    "pretest": "npm run build",
+    "test": "npm run test --workspaces"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

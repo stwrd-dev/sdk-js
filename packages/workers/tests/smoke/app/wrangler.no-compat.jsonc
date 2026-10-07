@@ -1,0 +1,10 @@
+// The negative control of the smoke test: `wrangler.no-flag.jsonc` with only the
+// compatibility date changed, to one before `nodejs_compat` became a default
+// (2026-08-04). No flag and no default: wrangler has to warn.
+{
+  "name": "stwrd-smoke-no-compat",
+  "main": "./index.ts",
+  "compatibility_date": "2025-06-01",
+  "durable_objects": { "bindings": [{ "name": "STWRD_SESSIONS", "class_name": "StwrdSessionObject" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["StwrdSessionObject"] }]
+}
