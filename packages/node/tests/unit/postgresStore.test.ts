@@ -9,7 +9,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import pg from "pg";
 
 import { Keyring, PostgresSessionStore, SCHEMA_SQL } from "../../src/postgres.js";
-import type { StwrdSession, Tokens } from "@stwrd-auth/core/sessions";
+import type { StwrdSession, Tokens } from "@stwrd/core/sessions";
 import { coordinationScenarios } from "./coordinationScenarios.js";
 
 const ADMIN_URL = (process.env.STWRD_TEST_DB_URL ?? "postgresql://stwrd:stwrd@localhost:55432/stwrd_test").replace("+psycopg", "");
@@ -194,7 +194,7 @@ describe("PostgresSessionStore", () => {
     const { store, namespace } = fresh();
     await store.set(session());
     // Build core and this package (`tsc -b`) and run two independent Node
-    // processes against the compiled `dist`: `jose`/`pg` and `@stwrd-auth/core`
+    // processes against the compiled `dist`: `jose`/`pg` and `@stwrd/core`
     // resolve through the workspace's node_modules.
     const root = fileURLToPath(new URL("../../", import.meta.url));
     const out = fileURLToPath(new URL("../../dist/", import.meta.url));

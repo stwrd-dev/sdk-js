@@ -1,22 +1,18 @@
 name: Publish
 
 # Publishes the packages to npm when a `v<version>` tag is pushed (for example
-# `v0.1.0`). Every package is published with a verifiable provenance statement.
+# `v0.1.1`). Every package is published with a verifiable provenance statement.
 #
-# Authentication. The normal path is npm trusted publishing: the job
-# authenticates to npm through OpenID Connect, so no npm token is stored
+# Authentication. CI never uses an npm token: the job authenticates to npm
+# through OpenID Connect (trusted publishing), so no npm token is stored
 # anywhere. Configure it on npmjs.com, for each of the four packages (Settings,
 # Trusted Publisher): GitHub Actions, organization `stwrd-dev`, repository
 # `sdk-js`, workflow filename `publish.yml`.
 #
 # A package must already exist on npm before a trusted publisher can be
-# configured, so the very first release cannot use it. For that release only,
-# the job falls back to a granular npm access token stored as the repository
-# secret `NPM_TOKEN` (Settings, Secrets and variables, Actions). The token needs
-# read and write permission on the `@stwrd-auth` packages. `NPM_TOKEN` is
-# temporary: once the trusted publisher of every package is configured, delete
-# the secret (and revoke the token on npmjs.com). With no `NPM_TOKEN` secret
-# the job uses OpenID Connect, so later releases need no change to this file.
+# configured, so the first release of the `@stwrd/*` names (0.1.1) is published
+# manually from the owner's machine with 2FA. After that, trusted publishers
+# are configured and every later release comes from this workflow.
 #
 # The four packages share one version. The tag must match it, and the packages
 # are published in dependency order: `core` first, because `node` and
@@ -85,12 +81,7 @@ jobs:
       - name: Test
         run: npm test
 
-      # `NPM_TOKEN` is only ever read from the secret store into this step's
-      # environment (GitHub masks secret values in the log). It is never
-      # written to a file by this script or printed.
       - name: Publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           version="${GITHUB_REF_NAME#v}"
           tag_args=()
@@ -98,13 +89,7 @@ jobs:
           case "$version" in
             *-*) tag_args=(--tag next) ;;
           esac
-          if [ -n "${NPM_TOKEN:-}" ]; then
-            echo "publishing with the NPM_TOKEN secret (first release)"
-            export NODE_AUTH_TOKEN="$NPM_TOKEN"
-          else
-            echo "publishing with npm trusted publishing (OpenID Connect)"
-          fi
-          unset NPM_TOKEN
+          echo "publishing with npm trusted publishing (OpenID Connect)"
           for dir in core node react workers; do
             name="$(node -p "require('./packages/${dir}/package.json').name")"
             if output="$(npm view "${name}@${version}" version 2>&1)"; then

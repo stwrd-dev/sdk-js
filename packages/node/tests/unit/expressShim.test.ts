@@ -12,8 +12,8 @@ import http from "node:http";
 import express, { type Express } from "express";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { LOGOUT_EVENT_URI } from "@stwrd-auth/core/oidc";
-import { clearedCookieHeader, setCookieHeader } from "@stwrd-auth/core/web/cookies";
+import { LOGOUT_EVENT_URI } from "@stwrd/core/oidc";
+import { clearedCookieHeader, setCookieHeader } from "@stwrd/core/web/cookies";
 import { createStwrd, signWebhook, type Stwrd } from "../../src/index.js";
 import { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, withFakeIdp } from "./helpers.js";

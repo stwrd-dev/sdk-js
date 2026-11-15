@@ -12,9 +12,9 @@
  * shared with the Python store.
  */
 
-import { Keyring } from "@stwrd-auth/core/keyring";
-import type { RefreshClaim, RefreshPhase, SessionStore, StwrdSession, Tokens } from "@stwrd-auth/core/sessions";
-import { withoutCapabilities } from "@stwrd-auth/core/sessions";
+import { Keyring } from "@stwrd/core/keyring";
+import type { RefreshClaim, RefreshPhase, SessionStore, StwrdSession, Tokens } from "@stwrd/core/sessions";
+import { withoutCapabilities } from "@stwrd/core/sessions";
 
 export const SCHEMA_SQL = `
 CREATE SEQUENCE stwrd_sdk_fence_seq;
@@ -34,7 +34,7 @@ CREATE TABLE stwrd_sdk_sessions (
 CREATE INDEX stwrd_sdk_sessions_expiry ON stwrd_sdk_sessions (namespace, expires_at);
 `;
 
-// `Keyring` lives in the core (the Durable Object store of `@stwrd-auth/workers` needs
+// `Keyring` lives in the core (the Durable Object store of `@stwrd/workers` needs
 // it too); this entry point keeps exporting it.
 export { Keyring };
 

@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { csrfToken, sign, unsign } from "@stwrd-auth/core/crypto";
+import { csrfToken, sign, unsign } from "@stwrd/core/crypto";
 
 describe("sign / unsign", () => {
   it("unsign verifies what sign produced", () => {

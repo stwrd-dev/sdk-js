@@ -1,5 +1,5 @@
 /**
- * `@stwrd-auth/workers`: the public surface, name by name. One row per
+ * `@stwrd/workers`: the public surface, name by name. One row per
  * name in `SURFACE`, and the runtime exports have to be EXACTLY those rows: a
  * new export is a new row (a contract to keep), a removed one is a break. The
  * type names are checked by `tsc` (this file is part of `npm run lint`), and the
@@ -45,7 +45,7 @@ const SURFACE = [
   "safeTarget",
 ];
 
-describe("@stwrd-auth/workers public surface", () => {
+describe("@stwrd/workers public surface", () => {
   it.each(SURFACE)("exports %s", (name) => {
     expect(sdk).toHaveProperty(name);
     expect((sdk as Record<string, unknown>)[name]).toBeDefined();
@@ -97,8 +97,8 @@ describe("the package manifest", () => {
     expect(Object.keys(manifest.exports)).toEqual(["."]);
   });
 
-  it("depends on exactly one runtime package, `@stwrd-auth/core`, at its exact version", () => {
-    expect(manifest.dependencies).toEqual({ "@stwrd-auth/core": core.version });
+  it("depends on exactly one runtime package, `@stwrd/core`, at its exact version", () => {
+    expect(manifest.dependencies).toEqual({ "@stwrd/core": core.version });
     expect(core.version).toMatch(/^\d+\.\d+\.\d+$/); // an exact version, not a range
   });
 

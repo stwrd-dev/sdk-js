@@ -1,7 +1,7 @@
 /**
  * The `/auth/*` routes as one `Request → Response` function. Every adapter
- * serves them through this: `@stwrd-auth/node` wraps it in an Express router,
- * `@stwrd-auth/workers` calls it from a Worker's `fetch`. The Python SDK serves
+ * serves them through this: `@stwrd/node` wraps it in an Express router,
+ * `@stwrd/workers` calls it from a Worker's `fetch`. The Python SDK serves
  * the same routes with the same behavior.
  *
  * The handler answers `null` for anything that is not one of its routes (other

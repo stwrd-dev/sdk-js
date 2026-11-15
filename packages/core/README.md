@@ -1,4 +1,4 @@
-# @stwrd-auth/core
+# @stwrd/core
 
 The runtime-neutral core shared by the stwrd JavaScript SDKs: configuration, an OpenID Connect relying-party client, server-side sessions with a refresh lease, signed cookies, webhook verification and the Management API transport.
 
@@ -8,29 +8,29 @@ The runtime-neutral core shared by the stwrd JavaScript SDKs: configuration, an 
 
 | Package | Use it for |
 |---|---|
-| [`@stwrd-auth/node`](https://www.npmjs.com/package/@stwrd-auth/node) | Express apps |
-| [`@stwrd-auth/workers`](https://www.npmjs.com/package/@stwrd-auth/workers) | Cloudflare Workers |
-| [`@stwrd-auth/react`](https://www.npmjs.com/package/@stwrd-auth/react) | React front ends that talk to one of the two above |
+| [`@stwrd/node`](https://www.npmjs.com/package/@stwrd/node) | Express apps |
+| [`@stwrd/workers`](https://www.npmjs.com/package/@stwrd/workers) | Cloudflare Workers |
+| [`@stwrd/react`](https://www.npmjs.com/package/@stwrd/react) | React front ends that talk to one of the two above |
 
 Install this package directly to write an adapter for another runtime, to verify stwrd webhooks on their own, or to use the typed Management client without an adapter.
 
 ## Installation
 
 ```sh
-npm install @stwrd-auth/core
+npm install @stwrd/core
 ```
 
 Requires Node.js 18 or newer, or any runtime that provides the Fetch API (`Request`, `Response`, `Headers`) and `node:crypto` (Cloudflare Workers with the `nodejs_compat` compatibility flag). The only runtime dependency is [`jose`](https://www.npmjs.com/package/jose) (`^6`). The package is ESM only and ships its own TypeScript declarations.
 
-Each module is a subpath export; there is no root entry point (`import ... from "@stwrd-auth/core/client"`). The adapters pin this package to an exact version, so install both from the same release.
+Each module is a subpath export; there is no root entry point (`import ... from "@stwrd/core/client"`). The adapters pin this package to an exact version, so install both from the same release.
 
 ## Minimal example
 
 A server for any runtime that speaks `Request` and `Response` (Bun, Deno, Workers). The handler serves the `/auth/*` routes and returns `null` for any other path:
 
 ```ts
-import { StwrdCore, stwrdOptionsFromEnv } from "@stwrd-auth/core/client";
-import { authHandler } from "@stwrd-auth/core/web/authHandler";
+import { StwrdCore, stwrdOptionsFromEnv } from "@stwrd/core/client";
+import { authHandler } from "@stwrd/core/web/authHandler";
 
 const stwrd = new StwrdCore(stwrdOptionsFromEnv(process.env));
 const handle = authHandler(stwrd);
@@ -42,12 +42,12 @@ export default {
 };
 ```
 
-Without a `sessions` option the sessions live in process memory (`MemoryStore`), which suits development and a single process. For several processes, pass a shared store that implements `SessionStore`; `@stwrd-auth/node/postgres` and `@stwrd-auth/workers` ship two.
+Without a `sessions` option the sessions live in process memory (`MemoryStore`), which suits development and a single process. For several processes, pass a shared store that implements `SessionStore`; `@stwrd/node/postgres` and `@stwrd/workers` ship two.
 
 Verifying a webhook delivery, with the raw request body and the request headers:
 
 ```ts
-import { SeenEventIds, verifyWebhook } from "@stwrd-auth/core/webhooks";
+import { SeenEventIds, verifyWebhook } from "@stwrd/core/webhooks";
 
 const seen = new SeenEventIds();
 
@@ -85,18 +85,18 @@ export function receive(rawBody: string | Buffer, headers: Record<string, string
 
 | Subpath | Exports |
 |---|---|
-| `@stwrd-auth/core/client` | `StwrdCore` (sessions, cookie sealing, CSRF, webhook verification, organization listing), `stwrdOptionsFromEnv`, `RefreshTuning`, `KeepAlive` |
-| `@stwrd-auth/core/config` | `resolveConfig`, `configFromEnv`, `stwrdConfigFromEnv`, `ConfigError`, defaults and option types |
-| `@stwrd-auth/core/oidc` | `OidcClient`, `OidcError`, `IdpUnavailable`, `RefreshUncertain`, PKCE and `state` helpers |
-| `@stwrd-auth/core/sessions` | `SessionStore`, `MemoryStore`, `StwrdSession`, `StwrdUser`, `StwrdOrganization`, `sessionContext`, `sessionResponse`, `hasRole`, `hasPermission` |
-| `@stwrd-auth/core/keyring` | `Keyring`: named 32-byte keys that encrypt stored sessions (JWE `dir` + `A256GCM`) |
-| `@stwrd-auth/core/backchannel` | `BackChannelSink`, `MemoryBackChannelSink` |
-| `@stwrd-auth/core/webhooks` | `verifyWebhook`, `verifyWebhookSignature`, `signWebhook`, `SeenEventIds`, `InvalidSignatureError`, `DuplicateEventError` |
-| `@stwrd-auth/core/management` | `createManagement`, `ManagementClient`, `ManagementError`: typed Management API client |
-| `@stwrd-auth/core/crypto` | `sign`, `unsign`, `csrfToken` |
-| `@stwrd-auth/core/web/authHandler` | `authHandler(stwrd, options?)`: the `/auth/*` routes as `(Request) => Promise<Response \| null>` |
-| `@stwrd-auth/core/web/access` | `checkAccess`, `resolveAccess`, `safeTarget`, `isPublicPath`: the access guards on `Request` and `Response` |
-| `@stwrd-auth/core/web/cookies`, `body`, `response` | Cookie, bounded body-reading and response helpers |
+| `@stwrd/core/client` | `StwrdCore` (sessions, cookie sealing, CSRF, webhook verification, organization listing), `stwrdOptionsFromEnv`, `RefreshTuning`, `KeepAlive` |
+| `@stwrd/core/config` | `resolveConfig`, `configFromEnv`, `stwrdConfigFromEnv`, `ConfigError`, defaults and option types |
+| `@stwrd/core/oidc` | `OidcClient`, `OidcError`, `IdpUnavailable`, `RefreshUncertain`, PKCE and `state` helpers |
+| `@stwrd/core/sessions` | `SessionStore`, `MemoryStore`, `StwrdSession`, `StwrdUser`, `StwrdOrganization`, `sessionContext`, `sessionResponse`, `hasRole`, `hasPermission` |
+| `@stwrd/core/keyring` | `Keyring`: named 32-byte keys that encrypt stored sessions (JWE `dir` + `A256GCM`) |
+| `@stwrd/core/backchannel` | `BackChannelSink`, `MemoryBackChannelSink` |
+| `@stwrd/core/webhooks` | `verifyWebhook`, `verifyWebhookSignature`, `signWebhook`, `SeenEventIds`, `InvalidSignatureError`, `DuplicateEventError` |
+| `@stwrd/core/management` | `createManagement`, `ManagementClient`, `ManagementError`: typed Management API client |
+| `@stwrd/core/crypto` | `sign`, `unsign`, `csrfToken` |
+| `@stwrd/core/web/authHandler` | `authHandler(stwrd, options?)`: the `/auth/*` routes as `(Request) => Promise<Response \| null>` |
+| `@stwrd/core/web/access` | `checkAccess`, `resolveAccess`, `safeTarget`, `isPublicPath`: the access guards on `Request` and `Response` |
+| `@stwrd/core/web/cookies`, `body`, `response` | Cookie, bounded body-reading and response helpers |
 
 ### Routes served by `authHandler`
 
@@ -113,7 +113,7 @@ export function receive(rawBody: string | Buffer, headers: Record<string, string
 ### Management client
 
 ```ts
-import { createManagement } from "@stwrd-auth/core/management";
+import { createManagement } from "@stwrd/core/management";
 
 const api = createManagement({
   issuer: process.env.STWRD_ISSUER!,

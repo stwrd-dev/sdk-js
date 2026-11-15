@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { contextFromClaims, hasRole, hasPermission, mergeClaims, sessionResponse, withoutCapabilities } from "@stwrd-auth/core/sessions";
+import { contextFromClaims, hasRole, hasPermission, mergeClaims, sessionResponse, withoutCapabilities } from "@stwrd/core/sessions";
 import { createStwrd, ConfigError, requireOrg } from "../../src/index.js";
 const org = { org_id: "opaque", org_display_name: "Team", org_roles: ["admin"], org_permissions: ["write"] };
 describe("session contract", () => {

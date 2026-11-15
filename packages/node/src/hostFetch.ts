@@ -15,7 +15,7 @@
 
 import { type IncomingMessage, request as httpRequest } from "node:http";
 
-import type { FetchLike } from "@stwrd-auth/core/oidc";
+import type { FetchLike } from "@stwrd/core/oidc";
 
 export interface HostFetchOptions {
   /** Where the TCP connection goes — `127.0.0.1` for a local IdP. */

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ConfigError } from "@stwrd-auth/core/config";
+import { ConfigError } from "@stwrd/core/config";
 import { SESSION_KEYS_ENV, parseSessionKeys } from "../../src/sessionKeys.js";
 
 const key = (fill: number) => Buffer.alloc(32, fill).toString("base64url");

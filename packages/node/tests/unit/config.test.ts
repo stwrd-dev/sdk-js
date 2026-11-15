@@ -12,7 +12,7 @@ import {
   type StwrdConfigOptions,
   configFromEnv,
   resolveConfig,
-} from "@stwrd-auth/core/config";
+} from "@stwrd/core/config";
 
 const VALID: StwrdConfigOptions = {
   issuer: "https://auth.example.com",

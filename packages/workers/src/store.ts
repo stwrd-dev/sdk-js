@@ -1,5 +1,5 @@
 /**
- * `DurableObjectSessionStore` — the `SessionStore` of `@stwrd-auth/workers`: one
+ * `DurableObjectSessionStore` — the `SessionStore` of `@stwrd/workers`: one
  * Durable Object (`StwrdSessionObject`) per local session, named after the
  * namespace (tenant/client) and the session id, like the PostgreSQL key
  * `(namespace, session_id)`, so two clients that share a binding never share
@@ -8,7 +8,7 @@
  * decided in one place.
  *
  * Sessions are sealed here, in the Worker, with a `Keyring` (JWE `dir` +
- * `A256GCM`, as `@stwrd-auth/node/postgres` does): the object only ever holds the
+ * `A256GCM`, as `@stwrd/node/postgres` does): the object only ever holds the
  * envelope, never the key and never a token in the clear. The authenticated
  * payload carries the namespace (tenant/client), the session id and the
  * purpose, so an envelope copied to another namespace or another object is
@@ -30,16 +30,16 @@
  * alive for good).
  */
 
-import type { BackChannelSink } from "@stwrd-auth/core/backchannel";
-import type { Keyring } from "@stwrd-auth/core/keyring";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
+import type { BackChannelSink } from "@stwrd/core/backchannel";
+import type { Keyring } from "@stwrd/core/keyring";
+import { IdpUnavailable } from "@stwrd/core/oidc";
 import {
   type RefreshClaim,
   type SessionStore,
   type StwrdSession,
   type Tokens,
   withoutCapabilities,
-} from "@stwrd-auth/core/sessions";
+} from "@stwrd/core/sessions";
 import type { ObjectClaim, StwrdSessionObject } from "./sessionObject.js";
 
 /** The prefix of every object name; the namespace and the session id follow it. */

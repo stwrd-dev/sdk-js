@@ -5,7 +5,7 @@
  * It never sees a session in the clear: the Worker seals the session (JWE, see
  * `store.ts`) and the object stores the envelope next to the lease columns,
  * which hold no secret. The lease is the same state machine as the PostgreSQL
- * and in-memory stores of `@stwrd-auth/node` (`SessionStore` in `@stwrd-auth/core/sessions`
+ * and in-memory stores of `@stwrd/node` (`SessionStore` in `@stwrd/core/sessions`
  * is the contract): `claim` grants the one refresh of a session, and every later
  * step is a compare-and-set on the fence it handed out.
  *
@@ -234,7 +234,7 @@ export class StwrdSessionObject extends DurableObject {
 
   /** Ends the session and remembers the notice's `jti` until `untilS`, in one
    * step and in this order: the session is deleted FIRST and the `jti` marked
-   * SECOND (`@stwrd-auth/core/backchannel`: the IdP retries a 5xx, and a `jti` marked
+   * SECOND (`@stwrd/core/backchannel`: the IdP retries a 5xx, and a `jti` marked
    * before a failed deletion would turn the retry into a "replay"). A `jti`
    * already seen deletes nothing. */
   logout(jti: string, untilS: number): "terminated" | "replay" {

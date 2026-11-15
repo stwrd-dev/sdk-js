@@ -8,7 +8,7 @@ import { createHmac } from "node:crypto";
 import { describe, expect, it } from "vitest";
 
 import { Stwrd, createStwrd } from "../../src/client.js";
-import { ConfigError } from "@stwrd-auth/core/config";
+import { ConfigError } from "@stwrd/core/config";
 import { DuplicateEventError } from "../../src/webhooks.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET } from "./helpers.js";
 

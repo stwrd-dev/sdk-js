@@ -5,8 +5,8 @@
  */
 import { env as workerEnv } from "cloudflare:test";
 
-import { Keyring } from "@stwrd-auth/core/keyring";
-import { IdpUnavailable, type FetchLike } from "@stwrd-auth/core/oidc";
+import { Keyring } from "@stwrd/core/keyring";
+import { IdpUnavailable, type FetchLike } from "@stwrd/core/oidc";
 import { FakeIdp } from "../../../node/tests/fixtures/fakeIdp.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, RequestJar, authContractScenarios, type ContractAdapter } from "../../../node/tests/unit/authContractScenarios.js";
 import { DurableObjectSessionStore } from "../../src/store.js";

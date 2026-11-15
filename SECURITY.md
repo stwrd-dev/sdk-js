@@ -15,6 +15,6 @@ Include the package and version, what an attacker can do, and the steps or code 
 
 ## Scope
 
-This policy covers the SDK packages published from this repository: `@stwrd-auth/core`, `@stwrd-auth/node`, `@stwrd-auth/react` and `@stwrd-auth/workers`.
+This policy covers the SDK packages published from this repository: `@stwrd/core`, `@stwrd/node`, `@stwrd/react` and `@stwrd/workers`.
 
 The hosted stwrd service is out of scope. To report a problem with it, use the contact published at [https://stwrd.dev](https://stwrd.dev).

@@ -3,7 +3,7 @@
  * vitest has no fixture injection.
  */
 
-import type { FetchLike } from "@stwrd-auth/core/oidc";
+import type { FetchLike } from "@stwrd/core/oidc";
 import { FakeIdp, type FakeIdpOptions } from "../fixtures/fakeIdp.js";
 
 export const CLIENT_ID = "demo-client";

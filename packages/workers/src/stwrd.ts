@@ -1,7 +1,7 @@
 /**
  * `stwrdFor(env, options)` and `StwrdWorkers` — the object a Worker builds
  * once from its `env` and uses for the `/auth/*` routes (and, further down,
- * the guards). Counterpart of `Stwrd` in `@stwrd-auth/node`: everything that is
+ * the guards). Counterpart of `Stwrd` in `@stwrd/node`: everything that is
  * not about HTTP lives in `StwrdCore`, and the routes are the core's
  * `Request → Response` handler.
  *
@@ -19,9 +19,9 @@
  * a request, so it is not a default.
  */
 
-import { type KeepAlive, type RefreshTuning, StwrdCore, type StwrdOptions, stwrdOptionsFromEnv } from "@stwrd-auth/core/client";
-import { ConfigError, type EnvLike } from "@stwrd-auth/core/config";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
+import { type KeepAlive, type RefreshTuning, StwrdCore, type StwrdOptions, stwrdOptionsFromEnv } from "@stwrd/core/client";
+import { ConfigError, type EnvLike } from "@stwrd/core/config";
+import { IdpUnavailable } from "@stwrd/core/oidc";
 import {
   type AccessResult,
   type AccessRule,
@@ -30,9 +30,9 @@ import {
   idpSilentResponse,
   isPublicPath,
   resolveAccess,
-} from "@stwrd-auth/core/web/access";
-import { readRequestCookie } from "@stwrd-auth/core/web/cookies";
-import { type AuthHandlerOptions, authHandler } from "@stwrd-auth/core/web/authHandler";
+} from "@stwrd/core/web/access";
+import { readRequestCookie } from "@stwrd/core/web/cookies";
+import { type AuthHandlerOptions, authHandler } from "@stwrd/core/web/authHandler";
 import { parseSessionKeys } from "./sessionKeys.js";
 import { DurableObjectSessionStore, type SessionObjects } from "./store.js";
 

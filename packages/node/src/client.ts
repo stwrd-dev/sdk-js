@@ -1,13 +1,13 @@
 /**
  * `Stwrd` / `createStwrd` — the object an app builds once and hands to
  * `authRouter`/`attach`/the guards. Everything that does not touch Express
- * lives in `StwrdCore` (`@stwrd-auth/core/client`).
+ * lives in `StwrdCore` (`@stwrd/core/client`).
  */
 
 import type { IncomingMessage } from "node:http";
 
-import { StwrdCore, type StwrdOptions, stwrdOptionsFromEnv } from "@stwrd-auth/core/client";
-import type { StwrdSession } from "@stwrd-auth/core/sessions";
+import { StwrdCore, type StwrdOptions, stwrdOptionsFromEnv } from "@stwrd/core/client";
+import type { StwrdSession } from "@stwrd/core/sessions";
 import { attachMiddleware } from "./guards.js";
 import { readCookie } from "./http.js";
 import { type AuthRouterOptions, type ProtectAllOptions, authRouter, protectAllMiddleware } from "./router.js";

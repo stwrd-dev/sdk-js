@@ -17,7 +17,7 @@ Initial release.
 - `protectAll()`: opt-in fail-closed protection of an entire app by path.
 - Server-side sessions, signed `__Host-` session cookie, CSRF protection and automatic token renewal.
 - Organization selection when the `org` scope is requested.
-- Webhook verification (`@stwrd-auth/node/webhooks`).
-- Typed Management API client (`@stwrd-auth/node/management`).
-- PostgreSQL session store with encrypted sessions and a refresh lease (`@stwrd-auth/node/postgres`).
+- Webhook verification (`@stwrd/node/webhooks`).
+- Typed Management API client (`@stwrd/node/management`).
+- PostgreSQL session store with encrypted sessions and a refresh lease (`@stwrd/node/postgres`).
 - `makeHostFetch` for developing against a local identity provider that routes by `Host`.

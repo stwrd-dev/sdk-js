@@ -1,1 +1,1 @@
-export * from "@stwrd-auth/core/management";
+export * from "@stwrd/core/management";

@@ -4,13 +4,13 @@
  * socket (the fake IdP is in handler mode), the way a Worker calls them.
  */
 
-import { StwrdCore } from "@stwrd-auth/core/client";
-import { MemoryStore } from "@stwrd-auth/core/sessions";
-import type { FetchLike } from "@stwrd-auth/core/oidc";
-import { type AccessContext, type AccessRule, checkAccess, isPublicPath, resolveAccess } from "@stwrd-auth/core/web/access";
-import { authHandler } from "@stwrd-auth/core/web/authHandler";
-import { jsonResponse } from "@stwrd-auth/core/web/response";
-import { readRequestCookie } from "@stwrd-auth/core/web/cookies";
+import { StwrdCore } from "@stwrd/core/client";
+import { MemoryStore } from "@stwrd/core/sessions";
+import type { FetchLike } from "@stwrd/core/oidc";
+import { type AccessContext, type AccessRule, checkAccess, isPublicPath, resolveAccess } from "@stwrd/core/web/access";
+import { authHandler } from "@stwrd/core/web/authHandler";
+import { jsonResponse } from "@stwrd/core/web/response";
+import { readRequestCookie } from "@stwrd/core/web/cookies";
 import { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, RequestJar, authContractScenarios, type ContractAdapter } from "./authContractScenarios.js";
 

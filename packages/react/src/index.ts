@@ -1,5 +1,5 @@
 /**
- * `@stwrd-auth/react` — the React SDK, BFF mode: the provider, the session
+ * `@stwrd/react` — the React SDK, BFF mode: the provider, the session
  * hooks and the guard and account components.
  */
 

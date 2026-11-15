@@ -5,9 +5,9 @@
 import { env as workerEnv } from "cloudflare:test";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { StwrdCore } from "@stwrd-auth/core/client";
-import { IdpUnavailable, type FetchLike } from "@stwrd-auth/core/oidc";
-import { MemoryStore, type StwrdSession } from "@stwrd-auth/core/sessions";
+import { StwrdCore } from "@stwrd/core/client";
+import { IdpUnavailable, type FetchLike } from "@stwrd/core/oidc";
+import { MemoryStore, type StwrdSession } from "@stwrd/core/sessions";
 import { FakeIdp } from "../../../node/tests/fixtures/fakeIdp.js";
 import { WORKERS_REFRESH_TUNING, stwrdFor } from "../../src/stwrd.js";
 

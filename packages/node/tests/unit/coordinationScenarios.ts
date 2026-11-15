@@ -4,9 +4,9 @@
 
 import { describe, expect, it } from "vitest";
 
-import { StwrdCore } from "@stwrd-auth/core/client";
-import { IdpUnavailable, type FetchLike } from "@stwrd-auth/core/oidc";
-import { isAccessTokenExpired, type SessionStore, type StwrdSession } from "@stwrd-auth/core/sessions";
+import { StwrdCore } from "@stwrd/core/client";
+import { IdpUnavailable, type FetchLike } from "@stwrd/core/oidc";
+import { isAccessTokenExpired, type SessionStore, type StwrdSession } from "@stwrd/core/sessions";
 import type { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, withFakeIdp } from "./helpers.js";
 

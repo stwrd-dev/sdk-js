@@ -1,4 +1,4 @@
-// What an app's wrangler config needs for `@stwrd-auth/workers`: the
+// What an app's wrangler config needs for `@stwrd/workers`: the
 // `nodejs_compat` flag, the Durable Object binding named STWRD_SESSIONS, and
 // the migration that creates the class as SQLite-backed. (Secrets are not
 // here: `wrangler secret put STWRD_COOKIE_SECRET`, ...)

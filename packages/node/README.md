@@ -1,4 +1,4 @@
-# @stwrd-auth/node
+# @stwrd/node
 
 stwrd SDK for Node.js and Express (backend-for-frontend profile): the `/auth/*` routes, server-side sessions, route guards and webhook verification.
 
@@ -8,14 +8,14 @@ stwrd SDK for Node.js and Express (backend-for-frontend profile): the `/auth/*` 
 
 Related packages:
 
-- [`@stwrd-auth/core`](https://www.npmjs.com/package/@stwrd-auth/core): the runtime-neutral logic this package builds on (installed automatically).
-- [`@stwrd-auth/react`](https://www.npmjs.com/package/@stwrd-auth/react): session hooks and components for the front end.
-- [`@stwrd-auth/workers`](https://www.npmjs.com/package/@stwrd-auth/workers): the same SDK for Cloudflare Workers.
+- [`@stwrd/core`](https://www.npmjs.com/package/@stwrd/core): the runtime-neutral logic this package builds on (installed automatically).
+- [`@stwrd/react`](https://www.npmjs.com/package/@stwrd/react): session hooks and components for the front end.
+- [`@stwrd/workers`](https://www.npmjs.com/package/@stwrd/workers): the same SDK for Cloudflare Workers.
 
 ## Installation
 
 ```sh
-npm install @stwrd-auth/node express
+npm install @stwrd/node express
 ```
 
 Requires Node.js 20 or newer. `express` (`^4 || ^5`) is a peer dependency: the package uses the Express your app already has. `pg` (`^8`) is an optional peer dependency, needed only for the PostgreSQL session store. The package is ESM only and ships its own TypeScript declarations.
@@ -26,7 +26,7 @@ Set the environment variables below, then:
 
 ```ts
 import express from "express";
-import { Stwrd, requireAuth, requirePermission, requireRole, safeTarget } from "@stwrd-auth/node";
+import { Stwrd, requireAuth, requirePermission, requireRole, safeTarget } from "@stwrd/node";
 
 const stwrd = Stwrd.fromEnv();
 const app = express();
@@ -98,7 +98,7 @@ Register `{STWRD_BASE_URL}/auth/callback` as a redirect URI of the application i
 | `STWRD_POST_LOGIN_REDIRECT` | no | `/` | Destination when a sign-in has no `return_to`. |
 | `STWRD_POST_LOGOUT_REDIRECT` | no | `/` | Destination after sign-out. |
 
-The remaining options (cookie names, transaction lifetime, `sessions`, `fetch`) are documented in [`@stwrd-auth/core`](https://www.npmjs.com/package/@stwrd-auth/core). `STWRD_COOKIE_SECURE=false` is for local development over plain HTTP only; browsers reject `__Host-` cookies that are not `Secure`, so also set the `sessionCookie` and `txCookie` options to names without that prefix.
+The remaining options (cookie names, transaction lifetime, `sessions`, `fetch`) are documented in [`@stwrd/core`](https://www.npmjs.com/package/@stwrd/core). `STWRD_COOKIE_SECURE=false` is for local development over plain HTTP only; browsers reject `__Host-` cookies that are not `Secure`, so also set the `sessionCookie` and `txCookie` options to names without that prefix.
 
 ### Scopes
 
@@ -110,10 +110,10 @@ The default scope does not include `org`; without it `organization` is `null`. A
 
 | Import | Contents |
 |---|---|
-| `@stwrd-auth/node` | `Stwrd`, `createStwrd`, guards, `safeTarget`, session helpers, webhook helpers, configuration and OIDC primitives, `makeHostFetch` |
-| `@stwrd-auth/node/management` | `createManagement`: typed Management API client |
-| `@stwrd-auth/node/webhooks` | `verifyWebhook`, `signWebhook`, `SeenEventIds` and related errors |
-| `@stwrd-auth/node/postgres` | `PostgresSessionStore`, `SCHEMA_SQL`, `Keyring` |
+| `@stwrd/node` | `Stwrd`, `createStwrd`, guards, `safeTarget`, session helpers, webhook helpers, configuration and OIDC primitives, `makeHostFetch` |
+| `@stwrd/node/management` | `createManagement`: typed Management API client |
+| `@stwrd/node/webhooks` | `verifyWebhook`, `signWebhook`, `SeenEventIds` and related errors |
+| `@stwrd/node/postgres` | `PostgresSessionStore`, `SCHEMA_SQL`, `Keyring` |
 
 ### `Stwrd`
 
@@ -149,7 +149,7 @@ Roles and permissions are checked by membership against the organization when th
 `/auth/webhook` verifies the signature and deduplicates by event `id` (30 hours, in memory). To verify by hand, in another route or framework:
 
 ```ts
-import { verifyWebhook, SeenEventIds } from "@stwrd-auth/node/webhooks";
+import { verifyWebhook, SeenEventIds } from "@stwrd/node/webhooks";
 
 const seen = new SeenEventIds();
 // rawBody: string | Buffer with the exact bytes received; headers: the request headers.
@@ -161,7 +161,7 @@ Deliveries carry `webhook-id`, `webhook-timestamp` and `webhook-signature` (`v1,
 ### Management API
 
 ```ts
-import { createManagement } from "@stwrd-auth/node/management";
+import { createManagement } from "@stwrd/node/management";
 
 const api = createManagement({
   issuer: process.env.STWRD_ISSUER!,
@@ -183,7 +183,7 @@ Server-side only. Operations, request bodies and responses are typed. Writes are
 
 ```ts
 import pg from "pg";
-import { Keyring, PostgresSessionStore } from "@stwrd-auth/node/postgres";
+import { Keyring, PostgresSessionStore } from "@stwrd/node/postgres";
 
 const store = new PostgresSessionStore(new pg.Pool({ connectionString }), {
   namespace: `${tenantId}/${clientId}`,
@@ -199,7 +199,7 @@ Sessions are encrypted (JWE) with the keyring, which is independent of the cooki
 The identity provider resolves the tenant from the `Host` header, and Node's global `fetch` replaces that header with the destination's. `makeHostFetch` connects to a fixed address and sends the issuer's `Host` as is:
 
 ```ts
-import { Stwrd, makeHostFetch } from "@stwrd-auth/node";
+import { Stwrd, makeHostFetch } from "@stwrd/node";
 
 const stwrd = Stwrd.fromEnv(process.env, {
   fetch: makeHostFetch({ connectHost: "127.0.0.1", connectPort: 3005, host: "idp.example.com" }),
@@ -237,7 +237,7 @@ A 503 never means the person signed out: the session is kept and the next reques
 
 ## Versioning
 
-This package follows Semantic Versioning (SemVer). While the version is below 1.0, minor releases may contain breaking changes. `@stwrd-auth/core` is pinned to an exact version, so the two always move together. Changes are listed in `CHANGELOG.md`.
+This package follows Semantic Versioning (SemVer). While the version is below 1.0, minor releases may contain breaking changes. `@stwrd/core` is pinned to an exact version, so the two always move together. Changes are listed in `CHANGELOG.md`.
 
 ## License
 

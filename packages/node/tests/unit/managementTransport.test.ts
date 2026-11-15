@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { ManagementError, ManagementTransport } from "@stwrd-auth/core/managementTransport";
+import { ManagementError, ManagementTransport } from "@stwrd/core/managementTransport";
 
 const issuer = "https://login.account.test";
 const base = "https://account.test/api/v1";

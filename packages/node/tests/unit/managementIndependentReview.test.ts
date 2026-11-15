@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { ManagementTransport } from "@stwrd-auth/core/managementTransport";
+import { ManagementTransport } from "@stwrd/core/managementTransport";
 const issuer = "https://login.account.test";
 const discovery = { issuer, token_endpoint: issuer + "/oidc/token", management_api_base_url: "https://account.test/api/v1", management_api_audience: "https://account.test" };
 function reply(body: unknown, status = 200) { return new Response(JSON.stringify(body), { status }); }

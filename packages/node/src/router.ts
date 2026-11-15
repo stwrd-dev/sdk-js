@@ -1,6 +1,6 @@
 /**
  * `authRouter` and `protectAll` — a thin Express shim over the core's
- * `authHandler` (`@stwrd-auth/core/web/authHandler`), which serves the routes
+ * `authHandler` (`@stwrd/core/web/authHandler`), which serves the routes
  * under `stwrd.config.prefix`, and over `checkAccess` for the opt-in
  * fail-closed middleware. The Python SDK's FastAPI integration behaves the
  * same way.
@@ -8,10 +8,10 @@
 
 import express, { type NextFunction, type Request, type RequestHandler, type Response, type Router } from "express";
 
-import { type AuthHandlerOptions, authHandler } from "@stwrd-auth/core/web/authHandler";
-import { checkAccess, isPublicPath } from "@stwrd-auth/core/web/access";
-import type { StwrdUser } from "@stwrd-auth/core/sessions";
-import type { WebhookEvent } from "@stwrd-auth/core/webhooks";
+import { type AuthHandlerOptions, authHandler } from "@stwrd/core/web/authHandler";
+import { checkAccess, isPublicPath } from "@stwrd/core/web/access";
+import type { StwrdUser } from "@stwrd/core/sessions";
+import type { WebhookEvent } from "@stwrd/core/webhooks";
 import type { Stwrd } from "./client.js";
 import { readCookie } from "./http.js";
 import { sendWebResponse, toWebRequest } from "./webBridge.js";

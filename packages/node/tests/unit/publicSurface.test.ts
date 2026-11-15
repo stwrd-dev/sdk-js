@@ -8,7 +8,7 @@ import { describe, expect, it } from "vitest";
 
 import * as sdk from "../../src/index.js";
 
-// Every public name of `@stwrd-auth/node`, letter for letter.
+// Every public name of `@stwrd/node`, letter for letter.
 const SURFACE = [
   "createStwrd",
   "Stwrd",
@@ -64,7 +64,7 @@ const SURFACE = [
   "InvalidSignatureError",
 ];
 
-describe("@stwrd-auth/node public surface", () => {
+describe("@stwrd/node public surface", () => {
   it.each(SURFACE)("exports %s", (name) => {
     expect(sdk).toHaveProperty(name);
     expect((sdk as Record<string, unknown>)[name]).toBeDefined();

@@ -18,7 +18,7 @@ import type { IncomingMessage } from "node:http";
 
 import type { Response as ExpressResponse, Request as ExpressRequest } from "express";
 
-import type { StwrdCore } from "@stwrd-auth/core/client";
+import type { StwrdCore } from "@stwrd/core/client";
 
 type ParsedBodyRequest = ExpressRequest & { _body?: boolean };
 

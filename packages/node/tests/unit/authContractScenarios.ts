@@ -1,6 +1,6 @@
 /**
  * What every adapter has to do with the eight `/auth/*` routes and the guards,
- * written once against a harness: the Express router of `@stwrd-auth/node` (real
+ * written once against a harness: the Express router of `@stwrd/node` (real
  * HTTP), the core's `authHandler` driven with `Request` objects (Node, no
  * socket) and the Worker adapter (workerd, a Durable Object as the store) all
  * run these same scenarios. A property that is only true of one adapter does
@@ -10,11 +10,11 @@
 
 import { describe, expect, it } from "vitest";
 
-import type { BackChannelSink } from "@stwrd-auth/core/backchannel";
-import type { StwrdCore } from "@stwrd-auth/core/client";
-import type { StwrdConfigOptions } from "@stwrd-auth/core/config";
-import { LOGOUT_EVENT_URI, type FetchLike } from "@stwrd-auth/core/oidc";
-import type { SessionStore, StwrdSession } from "@stwrd-auth/core/sessions";
+import type { BackChannelSink } from "@stwrd/core/backchannel";
+import type { StwrdCore } from "@stwrd/core/client";
+import type { StwrdConfigOptions } from "@stwrd/core/config";
+import { LOGOUT_EVENT_URI, type FetchLike } from "@stwrd/core/oidc";
+import type { SessionStore, StwrdSession } from "@stwrd/core/sessions";
 import type { FakeIdp, FakeIdpOptions } from "../fixtures/fakeIdp.js";
 
 export const CLIENT_ID = "demo-client";

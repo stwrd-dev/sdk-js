@@ -8,7 +8,7 @@ import express from "express";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { Stwrd, createStwrd } from "../../src/client.js";
-import type { FetchLike } from "@stwrd-auth/core/oidc";
+import type { FetchLike } from "@stwrd/core/oidc";
 import { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET } from "./helpers.js";
 import { CookieJar, TestServer, jarFetch } from "./testServer.js";
