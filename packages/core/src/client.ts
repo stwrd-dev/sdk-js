@@ -3,7 +3,7 @@
  * configuration, OIDC client, session store, cookie sealing, session
  * resolution with the refresh lease, organization listing and webhook
  * verification. It knows nothing about Express, Node's `http` or a Worker's
- * `env`: `@stwrd-auth/node` extends it with the Express wiring. The Python SDK
+ * `env`: `@stwrd/node` extends it with the Express wiring. The Python SDK
  * implements the same session logic.
  */
 
@@ -375,7 +375,7 @@ const ENV_NAME_BY_FIELD: Record<string, string> = {
 
 /** Reads `STWRD_*` variables from `env`, with `overrides` winning over them,
  * and fails closed (`ConfigError`) when a required one is missing from both.
- * There is no default `env` here: `@stwrd-auth/node` passes `process.env`. */
+ * There is no default `env` here: `@stwrd/node` passes `process.env`. */
 export function stwrdOptionsFromEnv(env: EnvLike, overrides: Partial<StwrdOptions> = {}): StwrdOptions {
   const { sessions, fetch: fetchImpl, ...configOverrides } = overrides;
   const merged = { ...configFromEnv(env, ENV_PREFIX), ...configOverrides } as StwrdConfigOptions;

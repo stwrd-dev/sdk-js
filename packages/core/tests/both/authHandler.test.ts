@@ -1,5 +1,5 @@
 // The eight `/auth/*` routes as `Request → Response`, driven with no Express
-// and no socket, on Node and on workerd. The Express router of `@stwrd-auth/node`
+// and no socket, on Node and on workerd. The Express router of `@stwrd/node`
 // is a shim over this handler, so what is pinned here is what every adapter
 // serves: same routes, same JSON, same cookies, same refusals.
 import { describe, expect, it } from "vitest";

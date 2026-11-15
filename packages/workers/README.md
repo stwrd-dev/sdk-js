@@ -1,18 +1,18 @@
-# @stwrd-auth/workers
+# @stwrd/workers
 
 stwrd SDK for Cloudflare Workers (backend-for-frontend profile): the `/auth/*` routes as a `Request` to `Response` handler, guards for your own routes, and a Durable Object that keeps each session on the server.
 
 ## What it is
 
-[stwrd](https://stwrd.dev) is a multi-tenant identity provider. In the backend-for-frontend (BFF) profile the server performs the OpenID Connect flow and keeps the tokens; the browser only holds a signed cookie. This package runs that profile inside a Worker. It exposes the same routes, the same `GET /auth/session` JSON and the same `STWRD_*` variables as [`@stwrd-auth/node`](https://www.npmjs.com/package/@stwrd-auth/node) and the Python SDK (`stwrd-auth` on PyPI), so a front end such as [`@stwrd-auth/react`](https://www.npmjs.com/package/@stwrd-auth/react) works unchanged. A person's `user.id` is the `sub` claim of the identity provider: global and stable.
+[stwrd](https://stwrd.dev) is a multi-tenant identity provider. In the backend-for-frontend (BFF) profile the server performs the OpenID Connect flow and keeps the tokens; the browser only holds a signed cookie. This package runs that profile inside a Worker. It exposes the same routes, the same `GET /auth/session` JSON and the same `STWRD_*` variables as [`@stwrd/node`](https://www.npmjs.com/package/@stwrd/node) and the Python SDK (`stwrd-auth` on PyPI), so a front end such as [`@stwrd/react`](https://www.npmjs.com/package/@stwrd/react) works unchanged. A person's `user.id` is the `sub` claim of the identity provider: global and stable.
 
 ## Installation
 
 ```sh
-npm install @stwrd-auth/workers
+npm install @stwrd/workers
 ```
 
-[`@stwrd-auth/core`](https://www.npmjs.com/package/@stwrd-auth/core) is a dependency, pinned to the exact version that ships with this release. Requirements:
+[`@stwrd/core`](https://www.npmjs.com/package/@stwrd/core) is a dependency, pinned to the exact version that ships with this release. Requirements:
 
 - Node.js 20 or newer for the tooling (`wrangler`).
 - The `nodejs_compat` compatibility flag with a `compatibility_date` of 2024-09-23 or later (any date from 2026-08-04 on enables the flag by itself). Without the flag the Worker does not start, because `node:crypto` cannot be imported. With the flag but an earlier date, `stwrdFor` throws a `ConfigError` because the `Buffer` global is missing.
@@ -25,7 +25,7 @@ The package is ESM only and ships its own TypeScript declarations.
 `wrangler.jsonc`: the flag, the binding of the session object and the migration that creates it as a SQLite-backed class.
 
 ```jsonc
-// What an app's wrangler config needs for `@stwrd-auth/workers`: the
+// What an app's wrangler config needs for `@stwrd/workers`: the
 // `nodejs_compat` flag, the Durable Object binding named STWRD_SESSIONS, and
 // the migration that creates the class as SQLite-backed. (Secrets are not
 // here: `wrangler secret put STWRD_COOKIE_SECRET`, ...)
@@ -42,7 +42,7 @@ The package is ESM only and ships its own TypeScript declarations.
 `index.ts`:
 
 ```ts
-import { StwrdSessionObject, stwrdFor } from "@stwrd-auth/workers";
+import { StwrdSessionObject, stwrdFor } from "@stwrd/workers";
 
 // The Durable Object class that wrangler.jsonc binds as STWRD_SESSIONS.
 export { StwrdSessionObject };
@@ -90,7 +90,7 @@ wrangler secret put STWRD_SESSION_KEYS
 | `STWRD_COOKIE_SECRET` | yes | yes | HMAC key of the session cookie, at least 32 random characters. |
 | `STWRD_SESSION_KEYS` | yes | yes | Keys that seal the stored sessions: `id:key` entries separated by commas, each key 32 bytes in base64url. The first entry encrypts; all of them decrypt. |
 | `STWRD_WEBHOOK_SECRET` | no | yes | Without it `/auth/webhook` answers 503. |
-| `STWRD_SCOPE`, `STWRD_PREFIX`, `STWRD_SESSION_TTL_S`, `STWRD_COOKIE_SECURE`, `STWRD_POST_LOGIN_REDIRECT`, `STWRD_POST_LOGOUT_REDIRECT` | no | no | Optional; defaults and meaning as in [`@stwrd-auth/core`](https://www.npmjs.com/package/@stwrd-auth/core). Add `org` to the scope to enable organizations. |
+| `STWRD_SCOPE`, `STWRD_PREFIX`, `STWRD_SESSION_TTL_S`, `STWRD_COOKIE_SECURE`, `STWRD_POST_LOGIN_REDIRECT`, `STWRD_POST_LOGOUT_REDIRECT` | no | no | Optional; defaults and meaning as in [`@stwrd/core`](https://www.npmjs.com/package/@stwrd/core). Add `org` to the scope to enable organizations. |
 
 Create the first session key with:
 
@@ -153,7 +153,7 @@ Pass the Worker's `ctx` (`handle(request, ctx)`, `resolve(request, ctx)`, or `{ 
 
 - Tokens never reach the browser: the cookie is HMAC-signed (tamper-evident) and carries only a session identifier. Sessions at rest in the Durable Object are encrypted (JWE `dir` + `A256GCM`) and authenticated against their namespace and id, so a copied envelope is rejected.
 - Secrets (`STWRD_CLIENT_SECRET`, `STWRD_COOKIE_SECRET`, `STWRD_SESSION_KEYS`, `STWRD_WEBHOOK_SECRET`) belong in `wrangler secret put`. Error messages name the variable or the position of an entry, never a key.
-- Sign-out and the organization switch require a CSRF token; redirect targets are confined to relative paths of the app; requests to the identity provider never follow redirects; the redirect URI is built from `STWRD_BASE_URL`, never from the `Host` header. The protocol details are those of `@stwrd-auth/core`.
+- Sign-out and the organization switch require a CSRF token; redirect targets are confined to relative paths of the app; requests to the identity provider never follow redirects; the redirect URI is built from `STWRD_BASE_URL`, never from the `Host` header. The protocol details are those of `@stwrd/core`.
 - Supported versions and how to report a vulnerability are described in the [security policy](https://github.com/stwrd-dev/sdk-js/security/policy).
 
 ## Error handling and troubleshooting
@@ -178,7 +178,7 @@ A 503 from `/auth/session` or from a guard means "could not find out", never "si
 
 ## Versioning
 
-This package follows Semantic Versioning (SemVer). While the version is below 1.0, minor releases may contain breaking changes. `@stwrd-auth/core` is pinned to an exact version, so the two always move together. Changes are listed in `CHANGELOG.md`.
+This package follows Semantic Versioning (SemVer). While the version is below 1.0, minor releases may contain breaking changes. `@stwrd/core` is pinned to an exact version, so the two always move together. Changes are listed in `CHANGELOG.md`.
 
 ## License
 

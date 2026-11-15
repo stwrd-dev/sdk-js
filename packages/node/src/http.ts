@@ -10,7 +10,7 @@
 
 import type { IncomingHttpHeaders, IncomingMessage } from "node:http";
 
-import { parseCookies } from "@stwrd-auth/core/web/cookies";
+import { parseCookies } from "@stwrd/core/web/cookies";
 
 export function readCookie(req: Pick<IncomingMessage, "headers">, name: string): string | undefined {
   return parseCookies(req.headers.cookie)[name];

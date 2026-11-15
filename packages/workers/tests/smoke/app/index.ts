@@ -1,4 +1,4 @@
-import { StwrdSessionObject, stwrdFor } from "@stwrd-auth/workers";
+import { StwrdSessionObject, stwrdFor } from "@stwrd/workers";
 
 // The Durable Object class that wrangler.jsonc binds as STWRD_SESSIONS.
 export { StwrdSessionObject };

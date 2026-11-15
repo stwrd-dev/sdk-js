@@ -2,9 +2,9 @@
 import { env } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
 
-import { Keyring } from "@stwrd-auth/core/keyring";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
-import type { StwrdSession } from "@stwrd-auth/core/sessions";
+import { Keyring } from "@stwrd/core/keyring";
+import { IdpUnavailable } from "@stwrd/core/oidc";
+import type { StwrdSession } from "@stwrd/core/sessions";
 import { DurableObjectSessionStore, SESSION_OBJECT_PREFIX, type SessionObjects, UNNAMED_NOTICE_OBJECT } from "../../src/store.js";
 
 const KEYRING = new Keyring({ k: new Uint8Array(32).fill(7) }, "k");

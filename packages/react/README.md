@@ -1,4 +1,4 @@
-# @stwrd-auth/react
+# @stwrd/react
 
 stwrd SDK for React (backend-for-frontend profile): a session provider, hooks and components that read the session from the `/auth/session` endpoint of your server.
 
@@ -6,12 +6,12 @@ stwrd SDK for React (backend-for-frontend profile): a session provider, hooks an
 
 [stwrd](https://stwrd.dev) is a multi-tenant identity provider. In the backend-for-frontend (BFF) profile your server performs the OpenID Connect flow and keeps the tokens; the browser only holds a session cookie. This package is the front-end half: it asks your server who is signed in and exposes that to React components. It never sees a token.
 
-It needs a server that serves the `/auth/*` routes on the same origin as your front end: [`@stwrd-auth/node`](https://www.npmjs.com/package/@stwrd-auth/node) (Express), [`@stwrd-auth/workers`](https://www.npmjs.com/package/@stwrd-auth/workers) (Cloudflare Workers) or the Python SDK (`stwrd-auth` on PyPI). Authorization decisions stay on the server; the guards in this package only decide what to render.
+It needs a server that serves the `/auth/*` routes on the same origin as your front end: [`@stwrd/node`](https://www.npmjs.com/package/@stwrd/node) (Express), [`@stwrd/workers`](https://www.npmjs.com/package/@stwrd/workers) (Cloudflare Workers) or the Python SDK (`stwrd-auth` on PyPI). Authorization decisions stay on the server; the guards in this package only decide what to render.
 
 ## Installation
 
 ```sh
-npm install @stwrd-auth/react
+npm install @stwrd/react
 ```
 
 Requires React 18 or newer (peer dependency) and a bundler that understands ESM. The package is ESM only and ships its own TypeScript declarations (install `@types/react` for TypeScript projects).
@@ -27,7 +27,7 @@ import {
   StwrdProvider,
   UserButton,
   useSession,
-} from "@stwrd-auth/react";
+} from "@stwrd/react";
 
 export function Home() {
   const session = useSession();

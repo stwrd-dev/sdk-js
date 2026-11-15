@@ -18,7 +18,7 @@ import {
   generateVerifier,
   halfHash,
   type FetchLike,
-} from "@stwrd-auth/core/oidc";
+} from "@stwrd/core/oidc";
 import type { FakeIdp } from "../fixtures/fakeIdp.js";
 import { withFakeIdp } from "./helpers.js";
 

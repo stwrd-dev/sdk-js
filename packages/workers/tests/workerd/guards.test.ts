@@ -3,8 +3,8 @@
 // run through the shared contract in `authContract.test.ts`.)
 import { describe, expect, it } from "vitest";
 
-import { ConfigError } from "@stwrd-auth/core/config";
-import { MemoryStore, type StwrdSession } from "@stwrd-auth/core/sessions";
+import { ConfigError } from "@stwrd/core/config";
+import { MemoryStore, type StwrdSession } from "@stwrd/core/sessions";
 import { stwrdFor } from "../../src/stwrd.js";
 
 const variables = {

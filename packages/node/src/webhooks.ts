@@ -1,1 +1,1 @@
-export * from "@stwrd-auth/core/webhooks";
+export * from "@stwrd/core/webhooks";

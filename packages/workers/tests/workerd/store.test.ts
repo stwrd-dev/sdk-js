@@ -6,9 +6,9 @@
 import { env } from "cloudflare:test";
 import { describe, expect, it, vi } from "vitest";
 
-import { Keyring } from "@stwrd-auth/core/keyring";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
-import { MemoryStore, type SessionStore, type StwrdSession, type Tokens } from "@stwrd-auth/core/sessions";
+import { Keyring } from "@stwrd/core/keyring";
+import { IdpUnavailable } from "@stwrd/core/oidc";
+import { MemoryStore, type SessionStore, type StwrdSession, type Tokens } from "@stwrd/core/sessions";
 import { coordinationScenarios } from "../../../node/tests/unit/coordinationScenarios.js";
 import { DurableObjectSessionStore, type SessionObjects, sessionObjectName } from "../../src/store.js";
 

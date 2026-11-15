@@ -1,6 +1,6 @@
 /**
  * `STWRD_SESSION_KEYS` — the keys that seal sessions before they go to a
- * Durable Object. Only the Workers adapter has it (`@stwrd-auth/node` keeps its
+ * Durable Object. Only the Workers adapter has it (`@stwrd/node` keeps its
  * keyring in code, next to its PostgreSQL pool).
  *
  * Format: `id:key` entries separated by commas, each key 32 bytes in base64url
@@ -11,8 +11,8 @@
  * must not start). Errors name the entry's position, never its key.
  */
 
-import { ConfigError } from "@stwrd-auth/core/config";
-import { Keyring } from "@stwrd-auth/core/keyring";
+import { ConfigError } from "@stwrd/core/config";
+import { Keyring } from "@stwrd/core/keyring";
 
 export const SESSION_KEYS_ENV = "STWRD_SESSION_KEYS";
 

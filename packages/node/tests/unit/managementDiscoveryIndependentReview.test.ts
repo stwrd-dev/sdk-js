@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { ManagementTransport } from "@stwrd-auth/core/managementTransport";
+import { ManagementTransport } from "@stwrd/core/managementTransport";
 
 const issuer = "https://login.test";
 const metadata = (account: string) => ({ issuer, token_endpoint: issuer + "/oidc/token", management_api_base_url: account + "/api/v1", management_api_audience: account });

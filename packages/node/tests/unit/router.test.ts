@@ -9,8 +9,8 @@ import express, { type Express } from "express";
 
 import { Stwrd, createStwrd } from "../../src/client.js";
 import { requireAuth, requireOrg, requirePermission, requireRole } from "../../src/guards.js";
-import type { FetchLike } from "@stwrd-auth/core/oidc";
-import { MemoryStore } from "@stwrd-auth/core/sessions";
+import type { FetchLike } from "@stwrd/core/oidc";
+import { MemoryStore } from "@stwrd/core/sessions";
 import { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, authContractScenarios, type ContractAdapter } from "./authContractScenarios.js";
 import { CookieJar, TestServer, jarFetch } from "./testServer.js";

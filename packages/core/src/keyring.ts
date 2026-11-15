@@ -1,8 +1,8 @@
 /**
  * Named 32-byte keys for encrypting session rows (JWE `dir` + `A256GCM`, via
  * jose). Shared by every store that keeps sessions outside the process: the
- * PostgreSQL store of `@stwrd-auth/node` and the Durable Object store of
- * `@stwrd-auth/workers`.
+ * PostgreSQL store of `@stwrd/node` and the Durable Object store of
+ * `@stwrd/workers`.
  */
 
 import { CompactEncrypt, compactDecrypt, decodeProtectedHeader } from "jose";

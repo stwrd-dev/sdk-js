@@ -1,6 +1,6 @@
 {
-  "name": "@stwrd-auth/react",
-  "version": "0.1.0",
+  "name": "@stwrd/react",
+  "version": "0.1.1",
   "description": "stwrd SDK for React (backend-for-frontend profile): a session provider, hooks and components that read the session from the /auth/session endpoint.",
   "keywords": [
     "stwrd",

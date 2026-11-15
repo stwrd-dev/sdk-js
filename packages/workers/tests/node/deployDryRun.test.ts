@@ -1,5 +1,5 @@
 /**
- * Smoke: an app Worker that uses `@stwrd-auth/workers` bundles for deployment.
+ * Smoke: an app Worker that uses `@stwrd/workers` bundles for deployment.
  * `wrangler deploy --dry-run` does everything a deploy does short of talking to
  * Cloudflare (it needs no account or token): it resolves the package the way a
  * consumer does (through its `exports`, the built `dist`), bundles it and reads
@@ -53,7 +53,7 @@ beforeAll(() => {
 afterAll(() => rmSync(scratch, { recursive: true, force: true }));
 
 describe("wrangler deploy --dry-run", () => {
-  it("bundles a Worker that uses @stwrd-auth/workers, with the Durable Object bound", () => {
+  it("bundles a Worker that uses @stwrd/workers, with the Durable Object bound", () => {
     const outdir = join(scratch, "good");
     const result = dryRun("wrangler.jsonc", outdir);
     expect(result.output).toContain("Total Upload");

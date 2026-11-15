@@ -1,6 +1,6 @@
 {
-  "name": "@stwrd-auth/workers",
-  "version": "0.1.0",
+  "name": "@stwrd/workers",
+  "version": "0.1.1",
   "description": "stwrd SDK for Cloudflare Workers (backend-for-frontend profile): the /auth/* handler, route guards and a Durable Object session store.",
   "keywords": [
     "stwrd",
@@ -56,7 +56,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@stwrd-auth/core": "0.1.0"
+    "@stwrd/core": "0.1.1"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.22.0",

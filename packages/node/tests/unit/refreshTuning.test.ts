@@ -1,17 +1,17 @@
 /**
- * The refresh tuning exists for the Workers adapter; `@stwrd-auth/node` has to stay
+ * The refresh tuning exists for the Workers adapter; `@stwrd/node` has to stay
  * exactly what it was: same constructor, same discovery handling, same poll.
- * The tuning's own behavior is pinned in `@stwrd-auth/core`
+ * The tuning's own behavior is pinned in `@stwrd/core`
  * (`tests/both/refreshTuning.test.ts`).
  */
 
 import { describe, expect, it } from "vitest";
 
 import { Stwrd } from "../../src/client.js";
-import type { StwrdSession } from "@stwrd-auth/core/sessions";
+import type { StwrdSession } from "@stwrd/core/sessions";
 import { BASE_URL, withFakeIdp } from "./helpers.js";
 
-describe("@stwrd-auth/node and the refresh tuning", () => {
+describe("@stwrd/node and the refresh tuning", () => {
   it("the constructor takes the options and nothing else", () => {
     expect(Stwrd.length).toBe(1);
   });

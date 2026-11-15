@@ -12,9 +12,9 @@
 import { env as workerEnv } from "cloudflare:test";
 import { describe, expect, it, vi } from "vitest";
 
-import { ConfigError } from "@stwrd-auth/core/config";
-import type { FetchLike } from "@stwrd-auth/core/oidc";
-import type { StwrdSession } from "@stwrd-auth/core/sessions";
+import { ConfigError } from "@stwrd/core/config";
+import type { FetchLike } from "@stwrd/core/oidc";
+import type { StwrdSession } from "@stwrd/core/sessions";
 import { FakeIdp } from "../../../node/tests/fixtures/fakeIdp.js";
 import { type StwrdWorkers, type WaitUntilContext, stwrdFor } from "../../src/stwrd.js";
 

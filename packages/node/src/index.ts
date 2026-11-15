@@ -1,11 +1,11 @@
 /**
- * `@stwrd-auth/node` — the Node SDK (BFF profile).
+ * `@stwrd/node` — the Node SDK (BFF profile).
  *
  * This module's exports are the public surface; every name here is part of
  * the package's API.
  */
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 
 // --- config ------------------------------------------------------------
 export {
@@ -14,15 +14,15 @@ export {
   ENV_PREFIX,
   REQUIRED_ENV,
   resolveConfig,
-} from "@stwrd-auth/core/config";
+} from "@stwrd/core/config";
 export { configFromEnv } from "./env.js";
-export type { OidcParams, ResolvedConfig, StwrdConfigOptions } from "@stwrd-auth/core/config";
+export type { OidcParams, ResolvedConfig, StwrdConfigOptions } from "@stwrd/core/config";
 
 // --- crypto / session primitives ---------------------------------------
-export { csrfToken, sign, unsign } from "@stwrd-auth/core/crypto";
+export { csrfToken, sign, unsign } from "@stwrd/core/crypto";
 
 // --- sessions ------------------------------------------------------------
-export { MemoryStore, accessExpiry, hasPermission, hasRole, userFromClaims, sessionContext, sessionResponse, contextFromClaims } from "@stwrd-auth/core/sessions";
+export { MemoryStore, accessExpiry, hasPermission, hasRole, userFromClaims, sessionContext, sessionResponse, contextFromClaims } from "@stwrd/core/sessions";
 export type {
   Claims,
   SessionResponse,
@@ -35,7 +35,7 @@ export type {
   StwrdSession,
   StwrdUser,
   Tokens,
-} from "@stwrd-auth/core/sessions";
+} from "@stwrd/core/sessions";
 
 // --- OIDC ------------------------------------------------------------
 export {
@@ -55,8 +55,8 @@ export {
   newAuthorizationState,
   newNonce,
   newState,
-} from "@stwrd-auth/core/oidc";
-export type { AuthorizationState, Awaitable, Discovery, FetchLike, Transaction } from "@stwrd-auth/core/oidc";
+} from "@stwrd/core/oidc";
+export type { AuthorizationState, Awaitable, Discovery, FetchLike, Transaction } from "@stwrd/core/oidc";
 
 // --- webhooks ------------------------------------------------------------
 export {

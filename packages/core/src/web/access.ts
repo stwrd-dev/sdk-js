@@ -1,8 +1,8 @@
 /**
  * Access guards on `Request → Response` terms: given the session cookie and
  * how the request arrived, decide to let it through or build the exact response
- * that stops it. `@stwrd-auth/node` wraps this in Express middleware
- * (`requireAuth`, `requireRole`, ...); `@stwrd-auth/workers` calls it straight
+ * that stops it. `@stwrd/node` wraps this in Express middleware
+ * (`requireAuth`, `requireRole`, ...); `@stwrd/workers` calls it straight
  * from a Worker. The session context is resolved once per request.
  *
  * One rule is shared by every guard: "cannot tell" is never translated into

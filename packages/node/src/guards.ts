@@ -1,6 +1,6 @@
 /**
  * `attach` and the Express guards — a thin Express shim over the core's
- * `checkAccess` (`@stwrd-auth/core/web/access`), which holds every decision: allow,
+ * `checkAccess` (`@stwrd/core/web/access`), which holds every decision: allow,
  * 401 JSON, 303 to sign-in, 403, and 503 when the IdP does not answer.
  *
  * Every factory below takes `stwrd` explicitly
@@ -24,7 +24,7 @@ import {
   checkAccess,
   resolveAccess,
   safeTarget,
-} from "@stwrd-auth/core/web/access";
+} from "@stwrd/core/web/access";
 import type { Stwrd } from "./client.js";
 import { readCookie } from "./http.js";
 import { sendWebResponse } from "./webBridge.js";

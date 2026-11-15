@@ -16,7 +16,7 @@ import {
   isSessionExpired,
   userFromClaims,
   contextFromClaims,
-} from "@stwrd-auth/core/sessions";
+} from "@stwrd/core/sessions";
 
 describe("userFromClaims", () => {
   it("fills absent optional fields with null or an empty list", () => {

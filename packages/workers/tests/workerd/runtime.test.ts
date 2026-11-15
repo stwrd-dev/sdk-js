@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { VERSION } from "../../src/index.js";
 
-describe("the tests of @stwrd-auth/workers run in workerd", () => {
+describe("the tests of @stwrd/workers run in workerd", () => {
   it("is Cloudflare's runtime, not Node", () => {
     expect(navigator.userAgent).toBe("Cloudflare-Workers");
     expect("WebSocketPair" in globalThis).toBe(true);
@@ -17,6 +17,6 @@ describe("the tests of @stwrd-auth/workers run in workerd", () => {
   });
 
   it("loads the package entry point", () => {
-    expect(VERSION).toBe("0.1.0");
+    expect(VERSION).toBe("0.1.1");
   });
 });

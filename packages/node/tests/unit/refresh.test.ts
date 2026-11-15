@@ -14,8 +14,8 @@
 import { describe, expect, it } from "vitest";
 
 import { Stwrd, createStwrd } from "../../src/client.js";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
-import { isAccessTokenExpired, type StwrdSession } from "@stwrd-auth/core/sessions";
+import { IdpUnavailable } from "@stwrd/core/oidc";
+import { isAccessTokenExpired, type StwrdSession } from "@stwrd/core/sessions";
 import type { FakeIdp } from "../fixtures/fakeIdp.js";
 import { BASE_URL, withFakeIdp } from "./helpers.js";
 

@@ -3,9 +3,9 @@
 import { env as workerEnv } from "cloudflare:test";
 import { describe, expect, it, vi } from "vitest";
 
-import { ConfigError } from "@stwrd-auth/core/config";
-import { IdpUnavailable } from "@stwrd-auth/core/oidc";
-import { MemoryStore, type SessionStore } from "@stwrd-auth/core/sessions";
+import { ConfigError } from "@stwrd/core/config";
+import { IdpUnavailable } from "@stwrd/core/oidc";
+import { MemoryStore, type SessionStore } from "@stwrd/core/sessions";
 import { DurableObjectSessionStore } from "../../src/store.js";
 import { StwrdWorkers, stwrdFor } from "../../src/stwrd.js";
 
