@@ -3,6 +3,10 @@
 All notable changes to this package are documented in this file.
 
 The format is based on Keep a Changelog 1.1.0, and this package adheres to Semantic Versioning (SemVer).
+## [0.1.2]
+
+0.1.2 — first release published from CI with npm trusted publishing (provenance); no code changes.
+
 
 ## [0.1.0] - Unreleased
 

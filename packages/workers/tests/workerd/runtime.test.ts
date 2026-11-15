@@ -17,6 +17,6 @@ describe("the tests of @stwrd/workers run in workerd", () => {
   });
 
   it("loads the package entry point", () => {
-    expect(VERSION).toBe("0.1.1");
+    expect(VERSION).toBe("0.1.2");
   });
 });
