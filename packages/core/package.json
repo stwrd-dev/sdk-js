@@ -1,6 +1,6 @@
 {
   "name": "@stwrd/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Runtime-neutral core of the stwrd JavaScript SDKs: configuration, OIDC relying-party client, sessions, signed cookies, webhook verification and the Management API transport.",
   "keywords": [
     "stwrd",

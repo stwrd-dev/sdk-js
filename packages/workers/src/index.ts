@@ -5,7 +5,7 @@
  * `@stwrd/node`: this module's exports are the public surface.
  */
 
-export const VERSION = "0.1.1";
+export const VERSION = "0.1.2";
 
 // --- the adapter -------------------------------------------------------------
 export { SESSIONS_BINDING, StwrdWorkers, stwrdFor } from "./stwrd.js";
