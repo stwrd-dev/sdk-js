@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { BAD_RETURN_TARGETS } from "../../../core/tests/support/badReturnTargets.js";
 import { StwrdProvider } from "../../src/StwrdProvider.js";
 import {
   OrganizationSwitcher,
@@ -396,7 +397,7 @@ describe("SignInButton", () => {
 
   it("drops return_to values that leave the origin", async () => {
     mockSessionFetch(sessionResponse());
-    for (const bad of ["//evil.test", "https://evil.test", "/\\evil.test", "javascript:alert(1)", "/a\nb"]) {
+    for (const bad of BAD_RETURN_TARGETS) {
       const { unmount } = render(<StwrdProvider><SignInButton returnTo={bad} /></StwrdProvider>);
       expect(screen.getByRole("link")).toHaveAttribute("href", "/auth/sign-in");
       unmount();

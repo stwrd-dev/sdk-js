@@ -47,6 +47,8 @@ export function SignedOut({ children, ...fallbacks }: SignedOutProps): ReactElem
 /** A same-origin path only: `//host`, `/\host` and control characters are dropped. */
 function safeReturnTo(value: string | undefined): string | null {
   if (value === undefined || !value.startsWith("/") || value.startsWith("//") || /[\u0000-\u001f\u007f\\]/.test(value)) return null;
+  // `/..//evil.com` and `/.//evil.com` normalize to the pathname `//evil.com`.
+  if (new URL(value, "http://x").pathname.startsWith("//")) return null;
   return value;
 }
 
