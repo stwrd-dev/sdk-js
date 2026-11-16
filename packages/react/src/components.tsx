@@ -3,31 +3,77 @@ import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 import { useSession } from "./useSession.js";
 import type { OrganizationOption, StwrdUser } from "./types.js";
 
-export interface SignedInProps {
+/** What to render while the session is not known yet or the server cannot answer. */
+export interface StatusFallbackProps {
+  /** Rendered while the first answer has not arrived. Default: nothing. */
+  loadingFallback?: ReactNode;
+  /** Rendered when the server could not answer. Default: nothing. */
+  unavailableFallback?: ReactNode;
+}
+
+/** The fallback for the two states in which nothing is known about the person, or `undefined` when the state is known. */
+function pending(status: string, { loadingFallback = null, unavailableFallback = null }: StatusFallbackProps): ReactNode | undefined {
+  if (status === "loading") return loadingFallback;
+  if (status === "unavailable") return unavailableFallback;
+  return undefined;
+}
+
+export interface SignedInProps extends StatusFallbackProps {
   children?: ReactNode;
 }
 
-export function SignedIn({ children }: SignedInProps): ReactElement | null {
+export function SignedIn({ children, ...fallbacks }: SignedInProps): ReactElement | null {
   const { status } = useSession();
+  if (status === "loading" || status === "unavailable") return <>{pending(status, fallbacks)}</>;
   if (status !== "authenticated") {
     return null;
   }
   return <>{children}</>;
 }
 
-export interface SignedOutProps {
+export interface SignedOutProps extends StatusFallbackProps {
   children?: ReactNode;
 }
 
-export function SignedOut({ children }: SignedOutProps): ReactElement | null {
+export function SignedOut({ children, ...fallbacks }: SignedOutProps): ReactElement | null {
   const { status } = useSession();
+  if (status === "loading" || status === "unavailable") return <>{pending(status, fallbacks)}</>;
   if (status !== "anonymous") {
     return null;
   }
   return <>{children}</>;
 }
 
-export interface ProtectProps {
+/** A same-origin path only: `//host`, `/\host` and control characters are dropped. */
+function safeReturnTo(value: string | undefined): string | null {
+  if (value === undefined || !value.startsWith("/") || value.startsWith("//") || /[\u0000-\u001f\u007f\\]/.test(value)) return null;
+  return value;
+}
+
+export interface SignInButtonProps {
+  className?: string;
+  /** Same-origin path to come back to after signing in (e.g. `/dashboard`). Anything else is ignored. */
+  returnTo?: string;
+  /** The label. Empty children fall back to "Sign in". */
+  children?: ReactNode;
+  /** Required for an icon-only label; otherwise the visible text names the link. */
+  "aria-label"?: string;
+}
+
+/** A link to `{baseUrl}/sign-in`. It handles no password or token. */
+export function SignInButton({ className, returnTo, children, "aria-label": ariaLabel }: SignInButtonProps): ReactElement {
+  const { baseUrl } = useSession();
+  const target = safeReturnTo(returnTo);
+  const href = `${baseUrl}/sign-in${target === null ? "" : `?return_to=${encodeURIComponent(target)}`}`;
+  const empty = children === undefined || children === null || typeof children === "boolean" || (typeof children === "string" && children.trim() === "");
+  return (
+    <a className={className} data-stwrd="sign-in-button" href={href} aria-label={ariaLabel?.trim() || undefined}>
+      {empty ? "Sign in" : children}
+    </a>
+  );
+}
+
+export interface ProtectProps extends StatusFallbackProps {
   role?: string;
   permission?: string;
 
@@ -37,13 +83,13 @@ export interface ProtectProps {
   children?: ReactNode;
 }
 
-export function Protect({ role, permission, condition, fallback = null, children }: ProtectProps): ReactElement | null {
+export function Protect({ role, permission, condition, fallback = null, children, ...fallbacks }: ProtectProps): ReactElement | null {
   const { user, organization, status } = useSession();
   if (status === "loading" || status === "unavailable") {
     // `unavailable` is handled with `loading`, not with `user === null`: the
     // `fallback` is what a person WITHOUT permission sees, and whether this
-    // person has it is not known.
-    return null;
+    // person has it is not known. The status fallbacks are separate props.
+    return <>{pending(status, fallbacks)}</>;
   }
   if (user === null) {
     return <>{fallback}</>;
@@ -55,16 +101,18 @@ export function Protect({ role, permission, condition, fallback = null, children
   return <>{children}</>;
 }
 
-export interface UserButtonProps {
+export interface UserButtonProps extends StatusFallbackProps {
   className?: string;
 }
 
-export function UserButton({ className }: UserButtonProps): ReactElement | null {
+export function UserButton({ className, ...fallbacks }: UserButtonProps): ReactElement | null {
   const { user, accountUrl, signOut, status } = useSession();
+  if (status === "loading" || status === "unavailable") return <>{pending(status, fallbacks)}</>;
   if (status !== "authenticated") {
     return null;
   }
-  const label = user.display_name ?? user.email ?? user.id;
+  // A blank name must not leave the control without a label.
+  const label = [user.display_name, user.email].find(v => v !== null && v.trim() !== "")?.trim() ?? user.id;
   return (
     <div className={className} data-stwrd="user-button">
       <span data-stwrd="user-button-label">{label}</span>

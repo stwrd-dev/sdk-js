@@ -8,6 +8,7 @@ import {
   Protect,
   SignedIn,
   SignedOut,
+  SignInButton,
   UserButton,
 } from "../../src/components.js";
 import { useSession } from "../../src/useSession.js";
@@ -382,3 +383,73 @@ describe("with a silent provider, no guard serves the old claims", () => {
     });
   }
 });
+
+describe("SignInButton", () => {
+  it("links to {baseUrl}/sign-in with a safe return_to and a visible name", async () => {
+    mockSessionFetch(sessionResponse());
+    render(<StwrdProvider baseUrl="/api/auth"><SignInButton returnTo="/panel?x=1" className="btn" /></StwrdProvider>);
+    const link = screen.getByRole("link", { name: "Sign in" });
+    expect(link).toHaveAttribute("href", "/api/auth/sign-in?return_to=%2Fpanel%3Fx%3D1");
+    expect(link).toHaveClass("btn");
+    expect(link).toHaveAttribute("data-stwrd", "sign-in-button");
+  });
+
+  it("drops return_to values that leave the origin", async () => {
+    mockSessionFetch(sessionResponse());
+    for (const bad of ["//evil.test", "https://evil.test", "/\\evil.test", "javascript:alert(1)", "/a\nb"]) {
+      const { unmount } = render(<StwrdProvider><SignInButton returnTo={bad} /></StwrdProvider>);
+      expect(screen.getByRole("link")).toHaveAttribute("href", "/auth/sign-in");
+      unmount();
+    }
+  });
+
+  it("never renders without a name: empty children fall back, aria-label is passed through", async () => {
+    mockSessionFetch(sessionResponse());
+    const { unmount } = render(<StwrdProvider><SignInButton>{"  "}</SignInButton></StwrdProvider>);
+    expect(screen.getByRole("link", { name: "Sign in" })).toBeInTheDocument();
+    unmount();
+    render(<StwrdProvider><SignInButton aria-label="Sign in with stwrd"><svg /></SignInButton></StwrdProvider>);
+    expect(screen.getByRole("link", { name: "Sign in with stwrd" })).toBeInTheDocument();
+  });
+});
+
+describe("status fallbacks", () => {
+  it("render while loading and when the server is unavailable, then give way to the real content", async () => {
+    mockSessionUnavailable("5xx");
+    render(
+      <StwrdProvider>
+        <SignedIn loadingFallback={<i>wait</i>} unavailableFallback={<i>down</i>}>in</SignedIn>
+        <SignedOut loadingFallback={<b>wait2</b>} unavailableFallback={<b>down2</b>}>out</SignedOut>
+        <Protect role="x" loadingFallback={<u>wait3</u>} unavailableFallback={<u>down3</u>} fallback={<u>denied</u>}>ok</Protect>
+        <UserButton unavailableFallback={<s>down4</s>} />
+      </StwrdProvider>,
+    );
+    expect(screen.getByText("wait")).toBeInTheDocument();
+    expect(screen.getByText("wait3")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("down")).toBeInTheDocument());
+    expect(screen.getByText("down2")).toBeInTheDocument();
+    expect(screen.getByText("down3")).toBeInTheDocument();
+    expect(screen.getByText("down4")).toBeInTheDocument();
+    expect(screen.queryByText("denied")).toBeNull();
+  });
+
+  it("render nothing by default", async () => {
+    mockSessionUnavailable("network");
+    const { container } = render(<StwrdProvider><SignedIn>in</SignedIn><SignedOut>out</SignedOut></StwrdProvider>);
+    await waitFor(() => expect(mockCalls()).toBeGreaterThan(0));
+    expect(container.textContent).toBe("");
+  });
+});
+
+describe("UserButton label", () => {
+  it("falls back to email, then id, when the display name is blank", async () => {
+    mockSessionFetch(sessionResponse({ authenticated: true, user: signedInUser({ display_name: "  ", email: null }) }));
+    const { container } = render(<StwrdProvider><UserButton /></StwrdProvider>);
+    await waitFor(() => expect(container.querySelector('[data-stwrd="user-button-label"]')).not.toBeNull());
+    expect(container.querySelector('[data-stwrd="user-button-label"]')!.textContent).toBe("1f2e3d4c-5b6a-7988-9a0b-c1d2e3f4a5b6");
+  });
+});
+
+function mockCalls(): number {
+  return (globalThis.fetch as unknown as { mock: { calls: unknown[] } }).mock.calls.length;
+}

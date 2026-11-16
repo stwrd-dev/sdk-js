@@ -24,6 +24,7 @@ import {
   Protect,
   SignedIn,
   SignedOut,
+  SignInButton,
   StwrdProvider,
   UserButton,
   useSession,
@@ -36,7 +37,7 @@ export function Home() {
   return (
     <>
       <SignedOut>
-        <a href="/auth/sign-in?return_to=/">Sign in</a>
+        <SignInButton returnTo="/" />
       </SignedOut>
       <SignedIn>
         <p>Hello, {session.user?.display_name ?? session.user?.email}.</p>
@@ -69,7 +70,7 @@ Mount `App` as usual (`createRoot(document.getElementById("root")!).render(<App 
 |---|---|---|---|
 | `baseUrl` | no | `/auth` | Where the server serves the routes; it must match the server's route prefix (`STWRD_PREFIX`). Changing it resets the session state. |
 
-The components render fixed English labels and expose `data-stwrd` attributes (`user-button`, `user-button-label`, `user-button-account-link`, `user-button-sign-out`, `organization-switcher`, `organization-switcher-select`, `organization-switcher-confirm`) as styling hooks. The `className` prop applies to the outer element.
+The components render fixed English labels and expose `data-stwrd` attributes (`user-button`, `user-button-label`, `user-button-account-link`, `user-button-sign-out`, `organization-switcher`, `organization-switcher-select`, `organization-switcher-confirm`, `sign-in-button`) as styling hooks. The `className` prop applies to the outer element.
 
 ## API reference
 
@@ -98,9 +99,12 @@ While `unavailable`, `useUser()` and `useOrganization()` may still return the la
 | Component | Description |
 |---|---|
 | `SignedIn`, `SignedOut` | Render their children only when `status` is `authenticated` or `anonymous`. |
+| `SignInButton` | A link to `{baseUrl}/sign-in`. Props: `className`, `returnTo` (a same-origin path; anything else is ignored), `children` (the label; empty falls back to "Sign in") and `aria-label` (for an icon-only label). It does not depend on the session status. |
 | `Protect` | Renders its children when the person has every control given (`role`, `permission`, `condition(user)`); otherwise `fallback`. Capabilities come from the organization when there is one, otherwise from the individual lists. Renders nothing while `loading` or `unavailable`. |
 | `UserButton` | The person's name (or email, or id), a link to the account page and a sign-out button. |
 | `OrganizationSwitcher` | A selector with a confirm button when the person has several organizations; otherwise a link to the account page of the organization. |
+
+`SignedIn`, `SignedOut`, `Protect` and `UserButton` render nothing while `loading` or `unavailable`. Pass `loadingFallback` and `unavailableFallback` to show something instead (a skeleton, or a "try again" message that calls `refresh()`). On `Protect`, `fallback` stays the content for a person without permission.
 
 ### Types
 
