@@ -7,6 +7,7 @@ import { MemoryBackChannelSink } from "../../src/backchannel.js";
 import { MemoryStore } from "../../src/sessions.js";
 import { BodyInvalid, BodyTooLarge, readBytes, readFormBody } from "../../src/web/body.js";
 import { safeTarget } from "../../src/web/access.js";
+import { BAD_RETURN_TARGETS } from "../support/badReturnTargets.js";
 import { clearedCookieHeader, parseCookies, readRequestCookie, setCookieHeader } from "../../src/web/cookies.js";
 import { encodeUrl, jsonResponse, redirectResponse } from "../../src/web/response.js";
 
@@ -201,5 +202,11 @@ describe("safeTarget keeps a redirect on this origin", () => {
     expect(safeTarget(candidate)).toBe(expected);
     // Whatever it returns resolves to this origin, never to another.
     expect(new URL(safeTarget(candidate), "https://app.example").origin).toBe("https://app.example");
+  });
+});
+
+describe("safeTarget rejects the shared list of bad targets", () => {
+  it.each(BAD_RETURN_TARGETS.map(candidate => [candidate]))("%j", candidate => {
+    expect(safeTarget(candidate)).toBe("/");
   });
 });

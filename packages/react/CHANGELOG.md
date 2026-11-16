@@ -3,6 +3,18 @@
 All notable changes to this package are documented in this file.
 
 The format is based on Keep a Changelog 1.1.0, and this package adheres to Semantic Versioning (SemVer).
+## [Unreleased]
+
+### Added
+
+- `SignInButton`, a link to `{baseUrl}/sign-in` with an optional same-origin `returnTo`.
+- `loadingFallback` and `unavailableFallback` props on `SignedIn`, `SignedOut`, `Protect` and `UserButton`.
+- `baseUrl` in the value returned by `useSession()`.
+
+### Fixed
+
+- `UserButton` no longer shows an empty label when the display name is blank.
+
 ## [0.1.2]
 
 0.1.2 — first release published from CI with npm trusted publishing (provenance); no code changes.

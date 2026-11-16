@@ -1,6 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { OrganizationOption, SessionResponse, StwrdState } from "./types.js";
 export type StwrdContextValue = StwrdState & {
+  /** The route prefix the provider talks to (`/auth` by default). */
+  baseUrl: string;
   refresh(): Promise<void>;
   signOut(): void;
   /** The person's own organizations; `null` when organization selection is not enabled on the BFF. */
@@ -136,7 +138,7 @@ export function StwrdProvider({ baseUrl = "/auth", children }: StwrdProviderProp
     markChanged();
     post("sign-out", { csrf_token: csrf.current ?? "" });
   }, []);
-  return <Context.Provider value={{ ...state, refresh, signOut, listOrganizations, selectOrganization }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ ...state, baseUrl, refresh, signOut, listOrganizations, selectOrganization }}>{children}</Context.Provider>;
 }
 export function useSessionContext(): StwrdContextValue {
   const value = useContext(Context);

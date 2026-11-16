@@ -88,7 +88,11 @@ const CONTROL_CHARACTER = /[\u0000-\u001f\u007f]/;
  * the same rule to a redirect target it read from somewhere less trustworthy
  * (a query param, a stored value). */
 export function safeTarget(candidate: string | null | undefined, fallback = "/"): string {
-  if (!candidate || !candidate.startsWith("/") || candidate.startsWith("//") || candidate.startsWith("/\\") || CONTROL_CHARACTER.test(candidate)) {
+  if (!candidate || !candidate.startsWith("/") || candidate.startsWith("//") || candidate.includes("\\") || CONTROL_CHARACTER.test(candidate)) {
+    return fallback;
+  }
+  // `/..//evil.com` and `/.//evil.com` normalize to the pathname `//evil.com`.
+  if (new URL(candidate, "http://x").pathname.startsWith("//")) {
     return fallback;
   }
   return candidate;
